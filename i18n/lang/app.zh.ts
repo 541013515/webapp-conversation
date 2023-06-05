@@ -18,6 +18,9 @@ const translation = {
     privacyPolicyLeft: "请阅读由该应用开发者提供的",
     privacyPolicyMiddle: "隐私政策",
     privacyPolicyRight: "。",
+    title1: "第一模块：自学成才",
+    title2: "第二模块：朗哥自学",
+    title3: "第三模块：合作联系",
   },
   errorMessage: {
     valueOfVarRequired: "变量值必填",

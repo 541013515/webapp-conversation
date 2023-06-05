@@ -22,6 +22,9 @@ const translation = {
       "privacy policy",
     privacyPolicyRight:
       " provided by the app developer.",
+    title1: "第一模块：自学成才",
+    title2: "第二模块：朗哥自学",
+    title3: "第三模块：合作联系",
   },
   errorMessage: {
     valueOfVarRequired: "Variables value can not be empty",

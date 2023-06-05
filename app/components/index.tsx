@@ -7,6 +7,7 @@ import { useBoolean, useGetState } from 'ahooks'
 import useConversation from '@/hooks/use-conversation'
 import Toast from '@/app/components/base/toast'
 import Sidebar from '@/app/components/sidebar'
+import Prompt from "./sidebar/prompt"
 import ConfigSence from '@/app/components/config-scence'
 import Header from '@/app/components/header'
 import { fetchAppParams, fetchChatList, fetchConversations, sendChatMessage, updateFeedback } from '@/service'
@@ -142,6 +143,13 @@ const Main: FC = () => {
     // trigger handleConversationSwitch
     setCurrConversationId(id, APP_ID)
     hideSidebar()
+  }
+
+  const [query, setQuery] = React.useState('')
+
+  const onCurrentInputChange = (inputs: string) => {
+    console.info(inputs)
+    setQuery(inputs)
   }
 
   /*
@@ -368,6 +376,51 @@ const Main: FC = () => {
     )
   }
 
+  const promptList1 = [
+    { "id": "1", "name": "我想自学某专题" },
+    { "id": "2", "name": "如何自学" },
+    { "id": "3", "name": "自学方案咨询" },
+    { "id": "4", "name": "推荐自学什么" },
+    { "id": "5", "name": "自学资源（资源搜索表）" },
+    { "id": "6", "name": "学用一体（自学赚钱）" },
+    { "id": "7", "name": "专题：自学职业商学" },
+    { "id": "8", "name": "专题：医疗运动健康" },
+    { "id": "9", "name": "专题：政务" },
+    { "id": "10", "name": "专题：互联网技能" },
+    { "id": "11", "name": "专题：社会技能" },
+  ]
+
+  const promptList2 = [
+    { "id": "21", "name": "微信公众号：朗哥自学大全" },
+    { "id": "22", "name": "朗哥自学导航" },
+    { "id": "23", "name": "能力规划与测试（职业生涯规划）" },
+    { "id": "24", "name": "朗哥自学职业商学" },
+    { "id": "25", "name": "共享人才网" },
+    { "id": "26", "name": "拖鞋帮（树洞陪聊式咨询）" },
+    { "id": "27", "name": "“自学能力”视频课程与资料" },
+    { "id": "28", "name": "朗哥IP和故事" },
+    { "id": "29", "name": "自学GPT研发 (资源搜索表) " },
+    { "id": "30", "name": "商业模式和融资计划书" },
+  ]
+
+  const promptList3 = [
+    { "id": "41", "name": "联系方式" },
+    { "id": "42", "name": "合作需求" },
+  ]
+
+  const renderPrompt = () => {
+    if (!APP_ID || !APP_INFO || !promptConfig)
+      return null
+    return (
+      <Prompt
+        list1={promptList1}
+        list2={promptList2}
+        list3={promptList3}
+        onCurrentInputChange={onCurrentInputChange}
+      />
+    )
+  }
+
   if (appUnavailable)
     return <AppUnavailable isUnknwonReason={isUnknwonReason} errMessage={!hasSetAppConfig ? 'Please set APP_ID and API_KEY in config/index.tsx' : ''} />
 
@@ -414,6 +467,7 @@ const Main: FC = () => {
               <div className='relative grow h-[200px] pc:w-[794px] max-w-full mobile:w-full pb-[66px] mx-auto mb-3.5 overflow-hidden'>
                 <div className='h-full overflow-y-auto' ref={chatListDomRef}>
                   <Chat
+                    promptInput={query}
                     chatList={chatList}
                     onSend={handleSend}
                     onFeedback={handleFeedback}
@@ -425,6 +479,18 @@ const Main: FC = () => {
               </div>)
           }
         </div>
+        {/* sidebar */}
+        {!isMobile && renderPrompt()}
+        {isMobile && isShowSidebar && (
+          <div className='fixed inset-0 z-50'
+            style={{ backgroundColor: 'rgba(35, 56, 118, 0.2)' }}
+            onClick={hideSidebar}
+          >
+            <div className='inline-block' onClick={e => e.stopPropagation()}>
+              {renderPrompt()}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

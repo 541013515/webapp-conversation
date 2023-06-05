@@ -16,6 +16,7 @@ import LoadingAnim from './loading-anim'
 export type FeedbackFunc = (messageId: string, feedback: Feedbacktype) => Promise<any>
 
 export type IChatProps = {
+  promptInput: string
   chatList: IChatItem[]
   /**
    * Whether to display the editing area and rating status
@@ -232,6 +233,7 @@ const Question: FC<IQuestionProps> = ({ id, content, useCurrentUserAvatar }) => 
 }
 
 const Chat: FC<IChatProps> = ({
+  promptInput,
   chatList,
   feedbackDisabled = false,
   isHideSendInput = false,
@@ -269,6 +271,10 @@ const Chat: FC<IChatProps> = ({
     if (controlClearQuery)
       setQuery('')
   }, [controlClearQuery])
+
+  useEffect(() => {
+    setQuery(promptInput || ''); // 监听外部传递进来的 promptInput 值的变化
+  }, [promptInput]);
 
   const handleSend = () => {
     if (!valid() || (checkCanSend && !checkCanSend()))

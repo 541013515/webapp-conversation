@@ -96,3 +96,8 @@ export type AppInfo = {
   copyright?: string
   privacy_policy?: string
 }
+
+export type PromptItem = {
+  id: string
+  name: string
+}
