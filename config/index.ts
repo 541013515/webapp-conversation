@@ -1,6 +1,6 @@
 import { AppInfo } from "@/types/app"
-export const APP_ID = 'b80f5ccb-1510-42d3-a236-dc7e8e426ecd'
-export const API_KEY = 'app-yHL2nEaJ4McC8G9aGxv796io'
+export const APP_ID = '5612cc8e-0e80-405d-b204-cf65fb8b36bf'
+export const API_KEY = 'app-4gMCzjMxQUws4knXRxH6M4YU'
 export const API_URL = ''
 export const APP_INFO: AppInfo = {
   "title": '私人自学 GPT，朗哥自学出品',
